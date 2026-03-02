@@ -1,5 +1,3 @@
-Source: https://www.notion.so/304ba490d2d680599237fe724e42d313
-
 ## 🎯 学習の目的
 Robloxが公式に公開している [**Roblox Lua Style Guide**](https://roblox.github.io/lua-style-guide/) には、Robloxのエンジニアチームが実際に使っているコーディングルールがまとめられています。この記事では、その内容を全11回のシリーズで分かりやすく解説します。
 

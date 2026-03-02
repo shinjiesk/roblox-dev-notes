@@ -1,4 +1,4 @@
 root: ./
 
 ignore:
-  - lua-style
+  - lua-style/**

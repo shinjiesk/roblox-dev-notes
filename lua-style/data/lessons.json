@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "title": "レッスン1：命名規則（Naming）",
+    "description": "以下の変数名を、スタイルガイドに沿った正しい名前に直してみましょう。",
+    "rules": "【このレッスンのルール】\n1. ローカル変数・関数 → camelCase（例: playerScore）\n2. クラス・Enum的オブジェクト → PascalCase（例: MyClass）\n3. ローカル定数 → LOUD_SNAKE_CASE（例: MAX_HEALTH）\n4. プライベートメンバー → _camelCase（例: _health）\n5. 省略しない。完全にスペルアウトする。\n6. 頭字語は普通の単語として扱う（HTTP → Http）。\n   例外: RGB, XYZ のようなセット（集合）は全大文字OK。",
+    "originalCode": "local PLAYERNAME = \"Taro\"           -- プレイヤーの名前を入れる変数\nlocal max_players = 10              -- ゲームの最大人数（定数）\nlocal function GetScore()           -- スコアを取得する関数\n    -- ...\nend\nlocal dmg = 25                      -- ダメージ量を入れる変数\nlocal myHTTPService = game:GetService(\"HttpService\")  -- サービス取得"
+  },
+  {
+    "id": 2,
+    "title": "レッスン2：空白・インデント・改行のルール",
+    "description": "以下のコードにはスタイルの間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. インデントはタブを使う\n2. 1行は100文字以内\n3. 演算子の前後にスペースを入れる（=, +, -, ==, ~=, and, or など）\n4. カンマの後にスペース、前にはスペースなし\n5. 空行でグループを区切る（ブロック先頭には入れない）\n6. 1行に1つの文だけ（セミコロンで複数文を並べない）\n7. 縦揃え（垂直整列）をしない\n8. ファイルの最後に空行を入れる\n9. 関数の本体は新しい行に展開する",
+    "originalCode": "local Players = game:GetService(\"Players\")\nlocal MAX_HEALTH=100\nlocal MAX_SPEED  = 16\nlocal MAX_DAMAGE = 50\n\nlocal function takeDamage(player,amount)\n\n\tlocal newHealth = MAX_HEALTH - amount\n\tif newHealth > 0 then\n\t\tprint(player.Name .. \" survived!\"); print(\"Health: \" .. newHealth)\n\tend\nend"
+  },
+  {
+    "id": 3,
+    "title": "レッスン3：コメントの書き方",
+    "description": "以下のコードにはコメントのスタイル間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. コメントは80文字以内で折り返す\n2. 「なぜ」を書く、「何」は書かない（コードを読めば分かることはコメントしない）\n3. ファイル先頭にファイル名・作者・日付を書かない（バージョン管理が記録するため）\n4. セクションコメント（--- FUNCTIONS --- など）を使わない（ファイルが大きいなら分割する）",
+    "originalCode": "--[[\n\tShopManager.lua\n\t作者：Taro\n\t作成日：2025-02-01\n\tショップの購入処理を管理するモジュール。\n]]\n\nlocal Players = game:GetService(\"Players\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal ShopData = require(ReplicatedStorage.ShopData)\n\nlocal MAX_ITEMS = 50\n\n--- FUNCTIONS ---\n\nlocal ShopManager = {}\n\n-- プレイヤーがアイテムを買う関数\nfunction ShopManager.buyItem(player, itemId)\n\t-- プレイヤーが十分なコインを持っているかチェックする\n\tlocal price = ShopData.getPrice(itemId)\n\tlocal coins = player.leaderstats.Coins.Value\n\n\t-- コインが不足していないかチェックして、不足していれば購入を中止する。不足のまま処理を進めると、コインがマイナスになりデータが壊れる。\n\tif coins < price then\n\t\treturn false\n\tend\n\n\tplayer.leaderstats.Coins.Value = coins - price\n\treturn true\nend\n\nreturn ShopManager"
+  },
+  {
+    "id": 4,
+    "title": "レッスン4：ファイル構造とrequire",
+    "description": "以下のコードにはファイル構造の間違いが3つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\nファイルの6つのブロック（この順番で書く）：\n1. ファイルの説明（ブロックコメント）\n2. サービスの取得（GetService）\n3. モジュールの読み込み（require）\n4. 定数\n5. 変数と関数\n6. モジュールを返す（return）\n\n追加ルール：\n- GetServiceの行はアルファベット順に並べる\n- requireの行はアルファベット順に並べる\n- requireは関数内ではなくファイル先頭にまとめる",
+    "originalCode": "local MAX_DAMAGE = 50\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal WeaponModule = require(ReplicatedStorage.WeaponModule)\nlocal Players = game:GetService(\"Players\")\n\nlocal function dealDamage(target)\n\tlocal ShieldModule = require(ReplicatedStorage.ShieldModule)\n\tlocal shield = ShieldModule.getShield(target)\n\tlocal finalDamage = MAX_DAMAGE - shield\nend\n\nreturn dealDamage"
+  },
+  {
+    "id": 5,
+    "title": "レッスン5：関数の書き方",
+    "description": "以下のコードにはスタイルの間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. セミコロン ; を使わない\n2. 引数はできるだけ1〜2個に抑える\n3. 関数呼び出しには必ず括弧を使う（print \"Hello\" ではなく print(\"Hello\")）\n4. 名前付き関数は local function 名前() で宣言する（local 名前 = function() は使わない）\n5. テーブル内の関数も function-prefix構文で宣言し、. と : を使い分ける\n   - ドット . → 通常の関数（selfなし）。コンストラクタ .new() など\n   - コロン : → メソッド（self自動渡し）。インスタンスの操作に使う",
+    "originalCode": "local MathHelper = {}\n\nMathHelper.add = function(a, b)\n\treturn a + b;\nend\n\nfunction multiply(a, b)\n\treturn a * b\nend\n\nfunction MathHelper:getMax(a, b, c, d, e)\n\tlocal result = math.max(a, b, c, d, e)\n\treturn result\nend\n\nlocal message = print \"Hello World\"\n\nreturn MathHelper"
+  },
+  {
+    "id": 6,
+    "title": "レッスン6：テーブルの書き方",
+    "description": "以下のコードにはスタイルの間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. リスト的テーブルと辞書的テーブルを混ぜない\n2. リストには ipairs、辞書には pairs を使う\n3. 複数行テーブルでは末尾カンマを付ける（最後の要素のあとにもカンマ）\n4. 辞書的テーブルは要素が多ければ複数行に展開する\n5. 波括弧 { は開始行と同じ行に置く（次の行に置かない）\n6. 文字列にはダブルクォート \" を使う（シングルクォート ' は使わない。例外：文字列中に\"がある場合）",
+    "originalCode": "local enemies = {\"Goblin\", \"Slime\", type = \"monster\", count = 3}\n\nlocal shopItems =\n{\n\t{name = 'Sword', price = 100, damage = 25},\n\t{name = 'Shield', price = 80, defense = 15}\n}\n\nfor index, item in pairs(shopItems) do\n\tprint(index, item.name)\nend"
+  },
+  {
+    "id": 7,
+    "title": "レッスン7：if文と条件式",
+    "description": "以下のコードにはスタイル間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. 条件に括弧 () を付けない（if (x) then → if x then）\n2. if文の本体は別の行に書く（return だけでも1行にまとめない）\n3. and/or の代わりに if-then-else 式を使う（local x = if flag then 1 else 2）\n4. 長い条件は専用ブロックに書き、then を別の行に置く\n5. 複数行 if-then-else 式は3行以内。超えたら普通の if 文にする\n6. do ブロックで変数のスコープを制限できる",
+    "originalCode": "local function processPlayer(player)\n\tif (not player) then return end\n\n\tlocal isVIP = player:IsInGroup(123)\n\tlocal hasPass = player:HasGamePass(456)\n\n\tlocal bonus = isVIP and 2 or 1\n\n\tif player.leaderstats and player.leaderstats.Level\n\t\tand player.leaderstats.Level.Value >= 10\n\t\tand isVIP then\n\t\tgiveSpecialReward(player)\n\tend\n\n\twhile (bonus > 0) do\n\t\tapplyBonus(player)\n\t\tbonus = bonus - 1\n\tend\nend"
+  },
+  {
+    "id": 8,
+    "title": "レッスン8：長い式の改行ルール",
+    "description": "以下のコードにはスタイルの間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. まず式を分割（一時変数）できないか考える\n2. 演算子は新しい行の先頭に置く（行末ではなく次の行の先頭に +, and, or などを書く）\n3. 関数引数のテーブルはすべて展開する（中途半端な展開をしない）\n\n関連ルール（レッスン6-7から）：\n- 辞書的テーブルは要素が多ければ複数行に展開する\n- 長い条件は専用ブロックに書き、then を別の行に置く",
+    "originalCode": "local totalDamage = baseDamage +\n\tcriticalBonus +\n\telementalBonus -\n\ttargetDefense\n\nlocal result = calculateReward(player, {difficulty = \"Hard\",\n\tmultiplier = 2, bonus = 100}, Vector3.new(0, 10, 0))\n\nlocal dropTable = {{name = \"Sword\", chance = 0.5, damage = 25, element = \"Fire\"}, {name = \"Shield\", chance = 0.3, defense = 15, element = \"Ice\"}}\n\nif player.IsAlive and player.Health > 0 and\n\tnot player.IsInSafeZone and player.Level >= 10 then\n\tstartBattle(player)\nend"
+  },
+  {
+    "id": 9,
+    "title": "レッスン9：メタテーブルとクラス",
+    "description": "以下のコードにはスタイルの間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. メタテーブルは「クラス」と「タイプミスガード」にだけ使う\n2. クラスは MyClass.__index = MyClass パターンで作る（__index の設定が必要）\n3. メソッドはドット . + 明示的 self で定義する（型安全のため）\n   - ✅ function Enemy.takeDamage(self: EnemyType, amount: number)\n   - ❌ function Enemy:takeDamage(amount: number)\n4. Enum的テーブルには __index でタイプミスガードをかける\n\nやってはいけないこと：\n- 演算子オーバーロード（__add, __tostring など）は避ける",
+    "originalCode": "local Pet = {}\n\nfunction Pet.new(name, species)\n\tlocal self = {\n\t\tname = name,\n\t\tspecies = species,\n\t\thunger = 0,\n\t}\n\n\tsetmetatable(self, Pet)\n\n\treturn self\nend\n\nfunction Pet:feed(amount)\n\tself.hunger = self.hunger - amount\n\tif self.hunger < 0 then\n\t\tself.hunger = 0\n\tend\nend\n\nfunction Pet.__tostring(self)\n\treturn self.name .. \" the \" .. self.species\nend\n\nlocal PetType = {\n\tDog = \"Dog\",\n\tCat = \"Cat\",\n}\n\nlocal myPet = Pet.new(\"Pochi\", PetType.Dgo)\n\nreturn Pet"
+  },
+  {
+    "id": 10,
+    "title": "レッスン10：エラーハンドリング",
+    "description": "以下のコードにはエラーハンドリングの間違いが4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. 失敗する可能性がある関数は success, result を返す（error() を投げない）\n   - return true, data（成功時）\n   - return false, \"エラーメッセージ\"（失敗時）\n2. error() / assert は「使い方の間違い」を知らせるときだけ使う（引数の型チェックなど）\n   - 「アイテムが見つからない」「コインが足りない」は通常の失敗なので error() は使わない\n3. エラーを投げる外部関数（DataStore:GetAsync, SetAsync など）を呼ぶときは pcall で囲む\n   - pcall の結果（success, errorMessage）は必ず確認する\n   - なぜ pcall が必要かコメントで書く",
+    "originalCode": "local DataStoreService = game:GetService(\"DataStoreService\")\nlocal coinStore = DataStoreService:GetDataStore(\"Coins\")\n\nlocal function getPlayerCoins(player)\n\tlocal coins = coinStore:GetAsync(player.UserId)\n\tif not coins then\n\t\terror(\"コインデータが見つかりません\")\n\tend\n\treturn coins\nend\n\nlocal function addCoins(player, amount)\n\tlocal currentCoins = getPlayerCoins(player)\n\tlocal newCoins = currentCoins + amount\n\n\tpcall(function()\n\t\tcoinStore:SetAsync(player.UserId, newCoins)\n\tend)\n\n\treturn newCoins\nend\n\nlocal function transferCoins(fromPlayer, toPlayer, amount)\n\tlocal fromCoins = getPlayerCoins(fromPlayer)\n\n\tif fromCoins < amount then\n\t\terror(\"コインが足りません\")\n\tend\n\n\taddCoins(fromPlayer, -amount)\n\taddCoins(toPlayer, amount)\nend"
+  },
+  {
+    "id": 11,
+    "title": "レッスン11：Roblox固有のベストプラクティス",
+    "description": "以下のコードにはRoblox固有のベストプラクティス違反が4つあります。それぞれ見つけて修正してみましょう。",
+    "rules": "【このレッスンのルール】\n1. サービスは game:GetService() で取得する（game.Players のようなドットアクセスは使わない）\n2. モジュールの変数名はモジュール名と一致させる（省略名や別名をつけない）\n3. Yieldする関数をメインタスク（トップレベル）で直接呼ばない\n   - Yieldする関数の例: HttpService:GetAsync(), :WaitForChild(), task.wait(), DataStore:GetAsync/SetAsync\n   - task.spawn で別タスクに分離する\n   - Yieldする処理がメインタスクにあると、その間にイベント（PlayerAddedなど）を見逃す",
+    "originalCode": "local Players = game.Players\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal HttpService = game:GetService(\"HttpService\")\n\nlocal ws = require(ReplicatedStorage.WeaponSystem)\n\nlocal API_URL = \"https://api.example.com/config\"\n\n-- サーバー起動時に設定データを取得する\nlocal configData = HttpService:GetAsync(API_URL)\n\nlocal MAX_WEAPONS = configData.maxWeapons\n\nlocal function equipWeapon(player, weaponName)\n\tlocal weapon = ws.create(weaponName)\n\tweapon.Parent = player.Character\nend\n\nlocal shopGui = ReplicatedStorage:WaitForChild(\"ShopGui\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal weapon = ws.getDefault(player)\n\tequipWeapon(player, weapon)\nend)"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+"Roblox_Studio_1": {
+      "command": "/Users/shinji/GitHub_studio-rust-mcp-server/studio-rust-mcp-server/target/release/rbx-studio-mcp",
+      "args": ["--stdio", "--port", "44755"]
+    },
+    "Roblox_Studio_2": {
+      "command": "/Users/shinji/GitHub_studio-rust-mcp-server/studio-rust-mcp-server/target/release/rbx-studio-mcp",
+      "args": ["--stdio", "--port", "44756"]
+    },
+    "Roblox_Studio_3": {
+      "command": "/Users/shinji/GitHub_studio-rust-mcp-server/studio-rust-mcp-server/target/release/rbx-studio-mcp",
+      "args": ["--stdio", "--port", "44757"]
+    },
+    "Roblox_Studio_4": {
+      "command": "/Users/shinji/GitHub_studio-rust-mcp-server/studio-rust-mcp-server/target/release/rbx-studio-mcp",
+      "args": ["--stdio", "--port", "44758"]
+    },
+    "Roblox_Studio_5": {
+      "command": "/Users/shinji/GitHub_studio-rust-mcp-server/studio-rust-mcp-server/target/release/rbx-studio-mcp",
+      "args": ["--stdio", "--port", "44759"]
+    }
+  }
+}

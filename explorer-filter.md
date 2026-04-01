@@ -136,8 +136,9 @@ Vector3 型と Color3 型のプロパティは `.X`/`.Y`/`.Z` や `.R`/`.G`/`.B`
 | `is:PackageLink Status=Changed` | 変更されたパッケージ |
 | `is:PackageLink Status="Up To Date"` | 最新のパッケージ |
 | `is:PackageLink Status="New Version Available"` | 新バージョンがあるパッケージ |
+| `is:PackageLink Status="Changed + New Version Available"` | 変更済み＋新バージョンありのパッケージ |
 
-複数単語の値はダブルクォートで囲む必要がある。`Status=Up To Date` のように書くと動作しない。
+`Status` は 4 値の文字列プロパティである（Enum ではなく `string` 型）。複数単語の値はダブルクォートで囲む必要がある。`Status=Up To Date` のように書くと動作しない。
 
 出典: [DevForum「How to search for all modified packages in explorer」](https://devforum.roblox.com/t/how-to-search-for-all-modified-packages-in-explorer/2334524)
 
